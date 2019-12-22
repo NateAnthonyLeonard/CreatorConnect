@@ -21,10 +21,12 @@ SESSIONNAME=flaskServer
 HOST=0.0.0.0
 PORT=80 #443
 
-# cd into api and prepare
-cd api
-export FLASK_ENV=development
-export FLASK_APP=api_main.py
+# # cd into api and prepare
+# cd api
+# export FLASK_ENV=development
+# export FLASK_APP=api_main.py
+
+# Compile website
 
 # Set up virtualization
 tmux ls | grep -Fx $SESSIONNAME
