@@ -235,7 +235,7 @@ class Home extends React.Component {
           </div>
         </Modal>
 
-        <button className="leftNavBar feedback"><a href="https://forms.gle/j19asMDP9VCjtQMDA" target="_blank">FEEDBACK</a></button>
+        <a href="https://forms.gle/j19asMDP9VCjtQMDA" target="_blank"><button className="leftNavBar feedback">FEEDBACK</button></a>
       </div>
 
         <h2 className="textAboveSearch"><span style={STYLE.SPAN}>C</span>reator<span style={STYLE.SPAN}>C</span>onnect<span style={STYLE.BETA}>BETA</span></h2>
