@@ -1,6 +1,6 @@
 # CreatorConnect
 
-CreatorConnect is a web app hosted by the Florida State University Innovation Hub to allow students with technical and innovative skills to advertise their skills to the FSU community and employers for the purpose of accessing enriching opportunities that include engaging on projects, internships, tutoring, and employment. Currently the program is in the developmental phase and over the fall of 2019 we created a beta version for it. The CreatorConnect beta version 
+CreatorConnect is a web app hosted by the Florida State University Innovation Hub to allow students with technical and innovative skills to advertise their skills to the FSU community and employers for the purpose of accessing enriching opportunities that include engaging on projects, internships, tutoring, and employment. Currently the program is in the developmental phase and over the Fall of 2019 we created a beta version for it. The CreatorConnect beta version 
 
 * Uses MongoDB as a relational database.
 * Uses Flask to host a secure backend server with multiple endpoints.
