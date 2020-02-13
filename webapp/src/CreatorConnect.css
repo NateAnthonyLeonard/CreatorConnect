@@ -359,7 +359,6 @@ flex auto*/
     overflow-x: hidden;
     overflow-y: scroll;
     margin:0;
-    margin-bottom: 3vh;
     padding:0;
   }
 
@@ -388,7 +387,7 @@ flex auto*/
   {
     background-color: #EAE3D1;
     width: 80vw;
-    min-height: 80vh;
+    min-height: 90vh;
     margin-left: 10vw;
     margin-top: 5vh;
     margin-bottom: 20vh;
