@@ -389,7 +389,7 @@ flex auto*/
     min-height: 80vh;
     margin-left: 10vw;
     margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-bottom: 10vh;
     border-radius: 2.5vw;
     flex: auto;
     padding-bottom: 5vh;
@@ -685,7 +685,7 @@ ul{
     min-height: 80vh;
     margin-left: 10vw;
     margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-bottom: 10vh;
     border-radius: 1.5vw;
     flex: auto;
     padding-bottom: 5vh;
