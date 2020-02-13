@@ -355,6 +355,7 @@ flex auto*/
 {
 
   html,body {
+    scroll-behavior: smooth;
     overflow-x: hidden;
     overflow-y: scroll;
     margin:0;
