@@ -28,8 +28,8 @@ export default function MultipleSelect() {
   const newUser = "New User? Click Here"
   //react hooks are used in a rather unconventional manner here. Allows for uniform asynchrenous functionality later on
   const boolArray = [true, false]  
-  const [registration, hideRegistration] = useState(boolArray[0]);
-  const [login, setLogin] = useState(boolArray[1]);
+  const [registration, hideRegistration] = useState(boolArray[1]);
+  const [login, setLogin] = useState(boolArray[0]);
   const [button, setButton] = useState(existingUser);
   const [skill, setSkill] = React.useState([]);
   let newUserData = {
