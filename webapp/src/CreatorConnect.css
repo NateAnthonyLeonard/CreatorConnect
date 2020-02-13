@@ -358,6 +358,7 @@ flex auto*/
     overflow-x: hidden;
     overflow-y: scroll;
     margin:0;
+    margin-bottom: 3vh;
     padding:0;
   }
 
