@@ -366,7 +366,14 @@ flex auto*/
   {
     display:none !important;
   }
-
+  
+  /*hover over component for button component of the navigation bar*/
+.topnav button:hover {
+  background-color: #5F2D38;
+  color: white;
+  height: 5.5vh;
+  }
+  
   .launchText
   {
     padding-top: 3vh;
