@@ -176,7 +176,7 @@ class Home extends React.Component {
       <div> {/* DO NOT REMOVE THIS DIV COMPONENT*/}
 
       <div class="topnav">
-        <form className="formWrap" action='http://localhost:5000/logout' method = 'POST' >
+        <form className="formWrap" action='http://orlandokenny.pythonanywhere.com/logout' method = 'POST' >
           <button className = "logout" type="submit">Logout</button>
         </form>
         <button className="leftNavBar about" onClick={this.openModal}>&nbsp;ABOUT </button>
