@@ -74,7 +74,7 @@ class Home extends React.Component {
             console.error(error);
         });
     //connects to the usercount endpoint to get the user count displayed in the 
-    axios.get(`http://localhost:5000/userCount`)
+    axios.get(`http://orlandokenny.pythonanywhere.com/userCount`)
         .then((response) => {
             this.setState({
                 totalUsers: parseInt(JSON.stringify(response.data.data))
