@@ -65,7 +65,7 @@ class Home extends React.Component {
       withCredentials: true
     });
     //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
-    axiosWithCookies.get(`http://localhost:5000/login`)
+    axiosWithCookies.get(`http://orlandokenny.pythonanywhere.com/login`)
         .then((response) => {
             this.setState({
                 data: parseInt(JSON.stringify(response.data))
