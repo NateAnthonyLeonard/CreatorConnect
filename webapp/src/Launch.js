@@ -72,7 +72,7 @@ export default function MultipleSelect() {
               <div className = "information">
 
               {/*first form, the new user form*/}
-              {registration && <form action = 'http://localhost:5000/register' method = 'POST'>
+              {registration && <form action = 'http://orlandokenny.pythonanywhere.com/register' method = 'POST'>
                   <input required className="inputBox" type="text" name="firstName" placeholder="First Name" ref={input => newUserData.firstName = input}></input>
                 
                   <input required className="inputBox" type="text" name="lastName" placeholder="Last Name" ref={input => newUserData.lastName = input}></input>
@@ -220,7 +220,7 @@ export default function MultipleSelect() {
                 </form>}
 
                 {/*second form, the existing user form*/}
-                {login && <form action = 'http://localhost:5000/login' method = 'POST'>
+                {login && <form action = 'http://orlandokenny.pythonanywhere.com/login' method = 'POST'>
                     <input required className="inputBox" type="text" name="fsuEmail" placeholder="FSU E-mail"></input>
                   <input required className="inputBox" type="password" name="password" placeholder="Password"></input>
                   <button className="inputBox" type="submit">Log In</button>

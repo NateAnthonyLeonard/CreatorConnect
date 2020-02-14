@@ -65,7 +65,7 @@ class Home extends React.Component {
       withCredentials: true
     });
     //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
-    axiosWithCookies.get(`http://localhost:5000/login`)
+    axiosWithCookies.get(`http://orlandokenny.pythonanywhere.com/login`)
         .then((response) => {
             this.setState({
                 data: parseInt(JSON.stringify(response.data))
@@ -74,7 +74,7 @@ class Home extends React.Component {
             console.error(error);
         });
     //connects to the usercount endpoint to get the user count displayed in the 
-    axios.get(`http://localhost:5000/userCount`)
+    axios.get(`http://orlandokenny.pythonanywhere.com/userCount`)
         .then((response) => {
             this.setState({
                 totalUsers: parseInt(JSON.stringify(response.data.data))
@@ -176,7 +176,7 @@ class Home extends React.Component {
       <div> {/* DO NOT REMOVE THIS DIV COMPONENT*/}
 
       <div class="topnav">
-        <form className="formWrap" action='http://localhost:5000/logout' method = 'POST' >
+        <form className="formWrap" action='http://orlandokenny.pythonanywhere.com/logout' method = 'POST' >
           <button className = "logout" type="submit">Logout</button>
         </form>
         <button className="leftNavBar about" onClick={this.openModal}>&nbsp;ABOUT </button>
@@ -235,7 +235,7 @@ class Home extends React.Component {
           </div>
         </Modal>
 
-        <button className="leftNavBar feedback"><a href="https://forms.gle/j19asMDP9VCjtQMDA" target="_blank">FEEDBACK</a></button>
+        <a href="https://forms.gle/j19asMDP9VCjtQMDA" target="_blank"><button className="leftNavBar feedback">FEEDBACK</button></a>
       </div>
 
         <h2 className="textAboveSearch"><span style={STYLE.SPAN}>C</span>reator<span style={STYLE.SPAN}>C</span>onnect<span style={STYLE.BETA}>BETA</span></h2>

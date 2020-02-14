@@ -366,7 +366,14 @@ flex auto*/
   {
     display:none !important;
   }
-
+  
+  /*hover over component for button component of the navigation bar*/
+.topnav button:hover {
+  background-color: #5F2D38;
+  color: white;
+  height: 5.5vh;
+  }
+  
   .launchText
   {
     padding-top: 3vh;
@@ -378,7 +385,7 @@ flex auto*/
     font-size: 11vw;
     color:#5F2D38;/*#EAE3D1;*/
     text-align: center;
-    margin-top: 2vh;
+    margin-top: 3vh;
   }
 
 
@@ -386,9 +393,9 @@ flex auto*/
   {
     background-color: #EAE3D1;
     width: 80vw;
-    min-height: 80vh;
+    min-height: 90vh;
     margin-left: 10vw;
-    margin-top: 5vh;
+    margin-top: 1vh;
     margin-bottom: 5vh;
     border-radius: 2.5vw;
     flex: auto;
@@ -401,7 +408,7 @@ flex auto*/
     margin-top: 3vw;
     display: block;
     width: 57vw !important;
-    height: 6vh;
+    height: 4vh;
   }
 
   .dropdown
@@ -466,7 +473,7 @@ padding-left:10vw !important;
 .textAboveSearch
 {
   background-size: cover;
-  margin-top: 12vh;
+  margin-top: 14vh;
   font-family: bebas-neue-by-fontfabric, sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -944,7 +951,7 @@ ul{
 
 /*link component for navigation bar at the top of the page*/
 .topnav a {
-  color: #5F2D38;
+  color: #000000;
   text-align: center;
   padding: .5vh;
   padding-top: 0;
