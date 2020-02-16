@@ -60,21 +60,23 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    
     const axios = require('axios');
     const axiosWithCookies = axios.create({
       withCredentials: true
     });
     //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
-    axiosWithCookies.get(`http://orlandokenny.pythonanywhere.com/login`)
+    axiosWithCookies.get(`https://orlandokenny.pythonanywhere.com/login`)
         .then((response) => {
             this.setState({
                 data: parseInt(JSON.stringify(response.data))
             });
         }).catch((error) => {
+            alert("There was an error connecting to the api")
             console.error(error);
         });
     //connects to the usercount endpoint to get the user count displayed in the 
-    axios.get(`http://orlandokenny.pythonanywhere.com/userCount`)
+    axios.get(`https://orlandokenny.pythonanywhere.com/userCount`)
         .then((response) => {
             this.setState({
                 totalUsers: parseInt(JSON.stringify(response.data.data))
