@@ -14,22 +14,18 @@ class UsersArray extends React.Component {
 
   //connects to the endpoint and parses its response to then set this.state's data value to the response.
   componentDidMount() {
-    const axios = require('axios');
-    const axiosWithCookies = axios.create({
-      withCredentials: true
-    });
-    axios.get(`https://orlandokenny.pythonanywhere.com/allRandUsers`)
-        .then((response) => {
-            this.setState({
-                data: response.data.data
-            });
-        }).catch((error) => {
-            console.error(error);
-        });
+    fetch('https://orlandokenny.pythonanywhere.com/allRandUsers')
+    .then(results => results.json())
+    .then(response => {
+      this.setState({data: response.data})
+    })
   }
 
   //runs a sudo for loop to iterate through the list of users it was given
   render() {
+    //userCount that will be used in the implementation of the search function.
+    const userCount = this.state.data.map((user) => console.log("")).length;
+    window.count=userCount
     return(
       this.state.data.map((user, i) => {
         return(
