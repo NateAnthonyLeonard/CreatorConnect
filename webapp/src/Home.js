@@ -66,7 +66,7 @@ class Home extends React.Component {
       withCredentials: true
     });
     //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
-    axiosWithCookies.get(`https://orlandokenny.pythonanywhere.com/login`)
+    axiosWithCookies.get(`http://localhost:5000/login`)
         .then((response) => {
             this.setState({
                 data: parseInt(JSON.stringify(response.data))
@@ -76,7 +76,7 @@ class Home extends React.Component {
             console.error(error);
         });
     //connects to the usercount endpoint to get the user count displayed in the 
-    axios.get(`https://orlandokenny.pythonanywhere.com/userCount`)
+    axios.get(`http://localhost:5000/userCount`)
         .then((response) => {
             this.setState({
                 totalUsers: parseInt(JSON.stringify(response.data.data))
@@ -178,8 +178,11 @@ class Home extends React.Component {
       <div> {/* DO NOT REMOVE THIS DIV COMPONENT*/}
 
       <div class="topnav">
-        <form className="formWrap" action='http://orlandokenny.pythonanywhere.com/logout' method = 'POST' >
+        <form className="formWrap" action='http://localhost:5000/logout' method = 'POST' >
           <button className = "logout" type="submit">Logout</button>
+        </form>
+        <form className="formWrap" action='http://localhost:5000/delete' method = 'POST' >
+          <button className = "logout" type="submit">delete</button>
         </form>
         <button className="leftNavBar about" onClick={this.openModal}>&nbsp;ABOUT </button>
         <Modal

@@ -5,6 +5,7 @@ import bcrypt
 import json
 from flask.sessions import SecureCookieSessionInterface
 import time
+from bson.objectid import ObjectId
 
 app.secret_key = 'mysecret' 
 
@@ -12,12 +13,14 @@ app.secret_key = 'mysecret'
 wrongPassword = False 
 nonexistentUser = False
 existentUser = False
+person = ""
 
 @app.route('/register', methods=['POST'])
 def createNewUser():
     global wrongPassword 
     global nonexistentUser
     global existentUser
+    global person
     document = request.form.to_dict()
     name = document['firstName'] + ' ' + document['lastName']
     emailEntered = document['fsuEmail'].lower()
@@ -39,18 +42,20 @@ def createNewUser():
         mongo.db.users.insert_one({'name': name, 'email': document['fsuEmail'].lower(), 'hashedPassword': hashedPassword, 'gradYear': document['gradYear'], 'skills': skillsArray})
         user = mongo.db.users.find_one({'email': emailEntered})
         session['username'] = user['name']
-        return redirect("https://creatorconnect.netlify.com/cards")
+        person = user['_id']
+        return redirect("http://localhost:3000/cards")
     else:
         wrongPassword = False
         nonexistentUser = False
         existentUser = True
-        return redirect("https://creatorconnect.netlify.com/cards")
+        return redirect("http://localhost:3000/cards")
 
 @app.route('/login', methods=['POST', 'GET'])
 def login(): 
   global wrongPassword 
   global nonexistentUser
   global existentUser
+  global person
   if request.method == 'POST': 
     document = request.form.to_dict()
     emailEntered = document['fsuEmail'].lower()
@@ -64,19 +69,20 @@ def login():
         wrongPassword = False
         nonexistentUser = True
         existentUser = False
-        return redirect("https://creatorconnect.netlify.com/cards")
+        return redirect("http://localhost:3000/cards")
     else:
         if (bcrypt.checkpw(passwordEntered.encode('utf8'), user['hashedPassword'])):
             wrongPassword = False
             nonexistentUser = False
             existentUser = False
             session['username'] = user['name'] #signs user in
-            return redirect("https://creatorconnect.netlify.com/cards")
+            person = user['_id']
+            return redirect("http://localhost:3000/cards")
         else:
             wrongPassword = True
             nonexistentUser = False
             existentUser = False
-            return redirect("https://creatorconnect.netlify.com/cards")
+            return redirect("http://localhost:3000/cards")
   elif request.method == 'GET':
     if 'username' in session:
       return "0"
@@ -108,7 +114,7 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
   session.pop('username')
-  return redirect("https://creatorconnect.netlify.com/")
+  return redirect("http://localhost:3000/")
 
 #experimental endpoint to avoid sending logged in users to the launch page
 @app.route('/isLoggedIn', methods=['GET'])
@@ -117,5 +123,13 @@ def isLoggedIn():
     return "0"
   return "1"
 
+@app.route('/delete', methods = ['POST', 'GET'])
+def delete():
+  global person
+  if request.method == 'GET':
+    return "we will delete " + person
+  elif request.method == 'POST': 
+    session.pop('username')
+    mongo.db.users.delete_one({'_id': person}) 
+    return redirect("http://localhost:3000/")
 
-      
