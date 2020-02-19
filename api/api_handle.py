@@ -21,6 +21,10 @@ def createNewUser():
     global nonexistentUser
     global existentUser
     global person
+    global email
+    global passwordForChange
+    global graduYear
+    global skillsForChange
     document = request.form.to_dict()
     name = document['firstName'] + ' ' + document['lastName']
     emailEntered = document['fsuEmail'].lower()
@@ -43,6 +47,10 @@ def createNewUser():
         user = mongo.db.users.find_one({'email': emailEntered})
         session['username'] = user['name']
         person = user['_id']
+        email = user['email'].lower()
+        passwordForChange = ## need to go to hashed password later to really change
+        graduYear = user['gradYear']
+        skillsForChange = user['skills']
         return redirect("http://localhost:3000/cards")
     else:
         wrongPassword = False
@@ -77,6 +85,10 @@ def login():
             existentUser = False
             session['username'] = user['name'] #signs user in
             person = user['_id']
+            email = user['email'].lower()
+            passwordForChange = ## need to go to hashed password later to really change
+            graduYear = user['gradYear']
+            skillsForChange = user['skills']
             return redirect("http://localhost:3000/cards")
         else:
             wrongPassword = True
@@ -133,3 +145,11 @@ def delete():
     mongo.db.users.delete_one({'_id': person}) 
     return redirect("http://localhost:3000/")
 
+@app.route('/changeInfo', methods = ['POST', 'GET'])
+def changeInfo():
+  if request.method == 'GET':
+    return "change your email, or password?"
+    case 1: ##emailchange
+      mongo.db.users.findAndModify({query:{}
+
+      })
