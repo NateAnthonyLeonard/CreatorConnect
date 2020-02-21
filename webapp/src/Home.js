@@ -41,6 +41,12 @@ class Home extends React.Component {
       sptModalIsOpen: false,
       ftrModalIsOpen: false,
       teamModalIsOpen: false,
+      editModalIsOpen: false,
+      userName: "",
+      userEmail: "",
+      userGrad: NaN,
+      userSkills: [],
+
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -57,6 +63,10 @@ class Home extends React.Component {
     this.teamOpenModal = this.teamOpenModal.bind(this);
     this.teamAfterOpenModal = this.teamAfterOpenModal.bind(this);
     this.teamCloseModal = this.teamCloseModal.bind(this);
+
+    this.editOpenModal = this.editOpenModal.bind(this);
+    this.editAfterOpenModal = this.editAfterOpenModal.bind(this);
+    this.editCloseModal = this.editCloseModal.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +94,21 @@ class Home extends React.Component {
         }).catch((error) => {
             console.error(error);
         });
+
+    
+        //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
+    axiosWithCookies.get(`http://localhost:5000/changeInfo`)
+    .then((response) => {
+      this.setState({
+        userName: response.data.data.name,
+        userEmail: response.data.data.email,
+        userGrad: response.data.data.gradYear,
+        userSkills: response.data.data.skills
+      })
+    }).catch((error) => {
+        alert("There was an error connecting to the api")
+        console.error(error);
+    });
   }
 
   //handles the real time serach bar and hides cards that do not correspond to the search query
@@ -158,6 +183,19 @@ class Home extends React.Component {
     this.setState({teamModalIsOpen: false});
   }
 
+  editOpenModal() {
+    this.setState({editModalIsOpen: true});
+
+  }
+
+  editAfterOpenModal() {
+    
+  }
+
+  editCloseModal() {
+    this.setState({editModalIsOpen: false});
+  }
+
   /*This class is internally conditionally rendered based on the code given by the login endpoint.
     The implementation is nested in a set of True or False conditionals.
     i.e. if data = 0 render 0, if not render 1... if data is 1 render 1, if not render 2.
@@ -181,9 +219,185 @@ class Home extends React.Component {
         <form className="formWrap" action='http://localhost:5000/logout' method = 'POST' >
           <button className = "logout" type="submit">Logout</button>
         </form>
-        <form className="formWrap" action='http://localhost:5000/delete' method = 'POST' >
-          <button className = "logout" type="submit">delete</button>
-        </form>
+          <button className = "logout" onClick={this.editOpenModal} type="submit">edit</button>
+          <Modal
+          isOpen={this.state.editModalIsOpen}
+          onAfterOpen={this.editAfterOpenModal}
+          onRequestClose={this.editCloseModal}
+          contentLabel="Example Modal">
+          <div className="modalBtn">
+            <button onClick={this.editCloseModal}>close</button>
+            <button className="float"onClick={() => {
+              var result = window.confirm("Are you sure you want to delete your account?")
+              if(result === true)
+              {
+                window.location = "http://localhost:5000/delete"
+              }
+              else
+              {
+
+              }
+          }}>delete account</button>
+          <div className="editModal">
+          <div className = "signUpOrIn2">
+            <div className = "CreatorConnectLogo">
+            <h4 className="launchText"><span style={STYLE.SPAN}>C</span>reator<span style={STYLE.SPAN}>C</span>onnect<span style={STYLE.BETA}>BETA</span></h4>
+
+              <div className="informationWrap">
+              <div className = "information">
+          <form action = 'http://localhost:5000/changeInfo' method = 'POST'>
+                  <input required className="inputBox" type="text" name="firstName" placeholder="First Name" defaultValue={(this.state.userName.split(" "))[0]} ></input>
+                
+                  <input required className="inputBox" type="text" name="lastName" placehodler="Last Name" defaultValue={(this.state.userName.split(" "))[1]} ></input>
+                
+                  <input required className="inputBox" type="email" name="fsuEmail" placeholder="FSU Email" defaultValue={(this.state.userEmail)} pattern=".+@.+.fsu.edu"  ></input>
+
+                
+                  {/*VERIFY PASSWORD INPUT BOX... WILL BE LEFT OUT FOR BETA AND FOCUS GROUP RELEASE*/}
+                
+                <div className="dropdown">
+                  <select name="gradYear" class="ui fluid dropdown">
+                      <option value={this.state.userGrad}>Graduation Year: {this.state.userGrad}</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022" >2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                  </select>
+                </div>
+
+                  {/*FORCE LOWERCASE INPUT GOING FORWARD*/}
+                  <div className="dropdown">
+                    <select name="firstSkill" class="ui fluid dropdown">
+                      <option value={this.state.userSkills[0]}>Skill #1: {this.state.userSkills[0]}</option>
+                      <option value="App Development">App Development</option>
+                      <option value="Electrical Circuits">Electrical Circuits</option>
+                      <option value="Laser Cutting">Laser Cutting</option>
+                      <option value="Computer Programming">Computer Programming</option>
+                      <option value="3D Design">3D Design</option>
+                      <option value="Brand Development">Brand Development</option>
+                      <option value="Design Thinking">Design Thinking</option>
+                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="Social Entrepreneurship">Social Entrepreneurship</option>
+                      <option value="Entrepreneurship">Entrepreneurship</option>
+                      <option value="Game/VR Design">Game/VR Design</option>
+                      <option value="Graphic Design">Graphic Design</option>
+                      <option value="Digital Photography">Digital Photography</option>
+                      <option value="User Experience (UX) Design">User Experience (UX) Design</option>
+                      <option value="Social Media Marketing">Social Media Marketing</option>
+                      <option value="Video Production">Video Production</option>
+                      <option value="Web Design">Web Design</option>
+                      <option value="Web Development">Web Development</option>
+                    </select>
+                </div>
+
+                <div className="dropdown">
+                    <select name="secondSkill" class="ui fluid dropdown">
+                      <option value={this.state.userSkills[1]}>Skill #2: {this.state.userSkills[1]}</option>
+                      <option value="App Development">App Development</option>
+                      <option value="Electrical Circuits">Electrical Circuits</option>
+                      <option value="Laser Cutting">Laser Cutting</option>
+                      <option value="Computer Programming">Computer Programming</option>
+                      <option value="3D Design">3D Design</option>
+                      <option value="Brand Development">Brand Development</option>
+                      <option value="Design Thinking">Design Thinking</option>
+                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="Social Entrepreneurship">Social Entrepreneurship</option>
+                      <option value="Entrepreneurship">Entrepreneurship</option>
+                      <option value="Game/VR Design">Game/VR Design</option>
+                      <option value="Graphic Design">Graphic Design</option>
+                      <option value="Digital Photography">Digital Photography</option>
+                      <option value="User Experience (UX) Design">User Experience (UX) Design</option>
+                      <option value="Social Media Marketing">Social Media Marketing</option>
+                      <option value="Video Production">Video Production</option>
+                      <option value="Web Design">Web Design</option>
+                      <option value="Web Development">Web Development</option>
+                    </select>
+                </div>
+
+                <div className="dropdown">
+                    <select name="thirdSkill" class="ui fluid dropdown">
+                      <option value={this.state.userSkills[2]}>Skill #3: {this.state.userSkills[2]}</option>
+                      <option value="App Development">App Development</option>
+                      <option value="Electrical Circuits">Electrical Circuits</option>
+                      <option value="Laser Cutting">Laser Cutting</option>
+                      <option value="Computer Programming">Computer Programming</option>
+                      <option value="3D Design">3D Design</option>
+                      <option value="Brand Development">Brand Development</option>
+                      <option value="Design Thinking">Design Thinking</option>
+                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="Social Entrepreneurship">Social Entrepreneurship</option>
+                      <option value="Entrepreneurship">Entrepreneurship</option>
+                      <option value="Game/VR Design">Game/VR Design</option>
+                      <option value="Graphic Design">Graphic Design</option>
+                      <option value="Digital Photography">Digital Photography</option>
+                      <option value="User Experience (UX) Design">User Experience (UX) Design</option>
+                      <option value="Social Media Marketing">Social Media Marketing</option>
+                      <option value="Video Production">Video Production</option>
+                      <option value="Web Design">Web Design</option>
+                      <option value="Web Development">Web Development</option>
+                    </select>
+                </div>
+
+                <div className="dropdown">
+                    <select name="fourthSkill" class="ui fluid dropdown">
+                      <option value={this.state.userSkills[3]}>Skill #4: {this.state.userSkills[3]}</option>
+                      <option value="App Development">App Development</option>
+                      <option value="Electrical Circuits">Electrical Circuits</option>
+                      <option value="Laser Cutting">Laser Cutting</option>
+                      <option value="Computer Programming">Computer Programming</option>
+                      <option value="3D Design">3D Design</option>
+                      <option value="Brand Development">Brand Development</option>
+                      <option value="Design Thinking">Design Thinking</option>
+                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="Social Entrepreneurship">Social Entrepreneurship</option>
+                      <option value="Entrepreneurship">Entrepreneurship</option>
+                      <option value="Game/VR Design">Game/VR Design</option>
+                      <option value="Graphic Design">Graphic Design</option>
+                      <option value="Digital Photography">Digital Photography</option>
+                      <option value="User Experience (UX) Design">User Experience (UX) Design</option>
+                      <option value="Social Media Marketing">Social Media Marketing</option>
+                      <option value="Video Production">Video Production</option>
+                      <option value="Web Design">Web Design</option>
+                      <option value="Web Development">Web Development</option>
+                    </select>
+                </div>
+
+                <div className="dropdown">
+                    <select name="fifthSkill" class="ui fluid dropdown">
+                      <option value={this.state.userSkills[4]}>Skill #5: {this.state.userSkills[4]}</option>
+                      <option value="App Development">App Development</option>
+                      <option value="Electrical Circuits">Electrical Circuits</option>
+                      <option value="Laser Cutting">Laser Cutting</option>
+                      <option value="Computer Programming">Computer Programming</option>
+                      <option value="3D Design">3D Design</option>
+                      <option value="Brand Development">Brand Development</option>
+                      <option value="Design Thinking">Design Thinking</option>
+                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="Social Entrepreneurship">Social Entrepreneurship</option>
+                      <option value="Entrepreneurship">Entrepreneurship</option>
+                      <option value="Game/VR Design">Game/VR Design</option>
+                      <option value="Graphic Design">Graphic Design</option>
+                      <option value="Digital Photography">Digital Photography</option>
+                      <option value="User Experience (UX) Design">User Experience (UX) Design</option>
+                      <option value="Social Media Marketing">Social Media Marketing</option>
+                      <option value="Video Production">Video Production</option>
+                      <option value="Web Design">Web Design</option>
+                      <option value="Web Development">Web Development</option>
+                    </select>
+                </div>
+                  <button className="inputBox2" type="submit">Submit</button>
+                </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+        
+          </div>
+          </Modal>
         <button className="leftNavBar about" onClick={this.openModal}>&nbsp;ABOUT </button>
         <Modal
           isOpen={this.state.modalIsOpen}

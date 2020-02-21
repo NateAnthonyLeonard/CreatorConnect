@@ -82,6 +82,9 @@ h4
   margin-bottom: .1vh;
 }
 
+.editModal {
+   margin-left: 15vw;
+}
 /*CreatorConnect logo on the pop up modals*/
 .modalLogo
 {
@@ -112,6 +115,7 @@ h4
   padding: 0;
   margin: 0;
 }
+
 
 /*Button inside modal*/
 .modalBtn button
@@ -147,6 +151,11 @@ h4
   color: #5F2D38;
   font-family: bebas-neue-by-fontfabric, sans-serif;
   background-color: #EAE3D1;
+}
+
+.float {
+  float: right;
+  font-size: 1vh;
 }
 
 /*Paragraph attribute used when listing skills*/
@@ -249,6 +258,15 @@ ul{
   height: 4vh;
 }
 
+/*Input boxes for sign up page*/
+.inputBox2 {
+  margin-left: 5vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  width: 20vw;
+  height: 5vh;
+}
+
 /*this is so  there is no extra space around the html or body components*/
 html,body {
   overflow-x: hidden;
@@ -305,7 +323,21 @@ flex auto*/
   border-radius: 0.694vw;
   flex: auto;
   padding-bottom: 5vh;
+}
 
+/*Sign Up/Sign In Box
+This contains info, set min height to allow growth
+flex auto*/
+.signUpOrIn2
+{
+  background-color: #EAE3D1;
+  width: 40vw;
+  height: 70vh;
+  margin-left: 10vw;
+  margin-top: 5vh;
+  border-radius: 0.694vw;
+  flex: auto;
+  padding-bottom: 5vh;
 }
 
 /*The CreatorConnect logo inside of the sign up/log in form*/

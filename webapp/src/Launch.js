@@ -73,13 +73,13 @@ export default function MultipleSelect() {
 
               {/*first form, the new user form*/}
               {registration && <form action = 'http://localhost:5000/register' method = 'POST'>
-                  <input required className="inputBox" type="text" name="firstName" placeholder="First Name" ref={input => newUserData.firstName = input}></input>
+                  <input required className="inputBox" type="text" name="firstName" placeholder="First Name" ></input>
                 
-                  <input required className="inputBox" type="text" name="lastName" placeholder="Last Name" ref={input => newUserData.lastName = input}></input>
+                  <input required className="inputBox" type="text" name="lastName" placeholder="Last Name" ></input>
                 
-                  <input required className="inputBox" type="email" name="fsuEmail" placeholder="FSU E-mail (lowercase)" pattern=".+@.+.fsu.edu"  ref={input => newUserData.email = input}></input>
+                  <input required className="inputBox" type="email" name="fsuEmail" placeholder="FSU E-mail (lowercase)" pattern=".+@.+.fsu.edu"></input>
              
-                  <input required className="inputBox" type="password" name="password" placeholder="Password" ref={input => newUserData.password = input}></input>
+                  <input required className="inputBox" type="password" name="password" placeholder="Password" ></input>
                 
                   {/*VERIFY PASSWORD INPUT BOX... WILL BE LEFT OUT FOR BETA AND FOCUS GROUP RELEASE*/}
                 

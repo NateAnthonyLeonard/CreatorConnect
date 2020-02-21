@@ -14,6 +14,7 @@ wrongPassword = False
 nonexistentUser = False
 existentUser = False
 person = ""
+passwordForChange = ""
 
 @app.route('/register', methods=['POST'])
 def createNewUser():
@@ -46,9 +47,9 @@ def createNewUser():
         mongo.db.users.insert_one({'name': name, 'email': document['fsuEmail'].lower(), 'hashedPassword': hashedPassword, 'gradYear': document['gradYear'], 'skills': skillsArray})
         user = mongo.db.users.find_one({'email': emailEntered})
         session['username'] = user['name']
-        person = user['_id']
+        person = user['name']
         email = user['email'].lower()
-        passwordForChange = ## need to go to hashed password later to really change
+        passwordForChange = user['hashedPassword']## need to go to hashed password later to really change
         graduYear = user['gradYear']
         skillsForChange = user['skills']
         return redirect("http://localhost:3000/cards")
@@ -64,6 +65,10 @@ def login():
   global nonexistentUser
   global existentUser
   global person
+  global email
+  global passwordForChange
+  global graduYear
+  global skillsForChange
   if request.method == 'POST': 
     document = request.form.to_dict()
     emailEntered = document['fsuEmail'].lower()
@@ -84,9 +89,9 @@ def login():
             nonexistentUser = False
             existentUser = False
             session['username'] = user['name'] #signs user in
-            person = user['_id']
+            person = user['name']
             email = user['email'].lower()
-            passwordForChange = ## need to go to hashed password later to really change
+            passwordForChange = user['hashedPassword']## need to go to hashed password later to really change
             graduYear = user['gradYear']
             skillsForChange = user['skills']
             return redirect("http://localhost:3000/cards")
@@ -135,21 +140,34 @@ def isLoggedIn():
     return "0"
   return "1"
 
-@app.route('/delete', methods = ['POST', 'GET'])
+@app.route('/delete', methods = ['GET'])
 def delete():
   global person
   if request.method == 'GET':
-    return "we will delete " + person
-  elif request.method == 'POST': 
     session.pop('username')
-    mongo.db.users.delete_one({'_id': person}) 
+    mongo.db.users.delete_one({'name': person}) 
     return redirect("http://localhost:3000/")
 
 @app.route('/changeInfo', methods = ['POST', 'GET'])
 def changeInfo():
+  global person
+  global email
+  global graduYear
+  global skillsForChange
   if request.method == 'GET':
-    return "change your email, or password?"
-    case 1: ##emailchange
-      mongo.db.users.findAndModify({query:{}
+    return Response(200, {"name": str(person), "email": str(email), "gradYear": graduYear, "skills": skillsForChange }).serialize()
+  if request.method == 'POST':
+    document = request.form.to_dict()
+    name = document['firstName'] + ' ' + document['lastName']
+    emailEntered = document['fsuEmail'].lower()
+    
+    skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
 
-      })
+    mongo.db.users.find_one_and_update({'name': person}, {'$set': {'name': name, 'email': emailEntered, 'gradYear': document['gradYear'], 'skills': skillsArray}})
+    #mongo.db.users.find_and_modify(query: {'email': emailEntered})
+    return redirect("http://localhost:3000/cards")
+#
+      #})
+@app.route('/dummyRedirect', methods = ['GET'])
+def dummyRedirect():
+  return redirect("http://localhost:3000/cards")
