@@ -15,6 +15,8 @@ nonexistentUser = False
 existentUser = False
 person = ""
 passwordForChange = ""
+graduYear = int
+skillsForChange = []
 
 @app.route('/register', methods=['POST'])
 def createNewUser():
@@ -46,7 +48,8 @@ def createNewUser():
         existentUser = False
         mongo.db.users.insert_one({'name': name, 'email': document['fsuEmail'].lower(), 'hashedPassword': hashedPassword, 'gradYear': document['gradYear'], 'skills': skillsArray})
         user = mongo.db.users.find_one({'email': emailEntered})
-        session['username'] = user['name']
+        
+        session['username'] = str(user['_id'])
         person = user['name']
         email = user['email'].lower()
         passwordForChange = user['hashedPassword']## need to go to hashed password later to really change
@@ -88,7 +91,7 @@ def login():
             wrongPassword = False
             nonexistentUser = False
             existentUser = False
-            session['username'] = user['name'] #signs user in
+            session['username'] = str(user['_id']) #signs user in
             person = user['name']
             email = user['email'].lower()
             passwordForChange = user['hashedPassword']## need to go to hashed password later to really change
@@ -164,7 +167,14 @@ def changeInfo():
     skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
 
     mongo.db.users.find_one_and_update({'name': person}, {'$set': {'name': name, 'email': emailEntered, 'gradYear': document['gradYear'], 'skills': skillsArray}})
-    #mongo.db.users.find_and_modify(query: {'email': emailEntered})
+    #search for email in DB
+    user = mongo.db.users.find_one({'email': emailEntered})
+    person = user['name']
+    email = user['email']
+    graduYear = user['gradYear']
+    skillsForChange = user['skills']
+
+
     return redirect("http://localhost:3000/cards")
 #
       #})
