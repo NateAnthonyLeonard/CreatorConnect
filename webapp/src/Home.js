@@ -140,6 +140,70 @@ class Home extends React.Component {
         }
   }
 
+  filterBy(argument) {
+    var input, filter;
+    if(argument === "ALL")
+    {
+      input = [""]
+
+    }
+    else if(argument === "DESIGN")
+    {
+      input = ["DESIGN"]
+    }
+    else if(argument === "CREATE")
+    {
+      input = ["DIGITAL PHOTOGRAPHY", "VIDEO PRODUCTION", "ENTREPRENEURSHIP", "SOCIAL ENTREPRENEURSHIP", "SOCIAL MEDIA MARKETING"]
+    }
+    else if(argument === "BUILD")
+    {
+      input = ["LASER CUTTING", "ELECTRICAL CIRCUITS", "3D PRINTING"]
+    }
+    else if(argument === "DEVELOP")
+    {
+      input = ["DEVELOPMENT", "COMPUTER PROGRAMMING"]
+    }
+    else
+    {
+      input = [""]
+    }
+    filter = [];
+    for(var i = 0; i < input.length; i++)
+    {
+      filter.push(input[i])
+    }
+    var searchResults = []
+    var userText = []
+    for(var i = 0; i < window.count; i++)
+    {
+      var div = document.getElementById("searchUsers" + i);
+      userText.push(div.innerText)
+    }
+    for(i = 0; i < window.count; i++)
+    {
+      searchResults = []
+      for(var j = 0; j < filter.length; j++)
+      {
+        if (userText[i].toUpperCase().indexOf(filter[j]) > -1)
+        {
+          div = document.getElementById("searchUsers" + i)
+          searchResults.push(div)
+        }
+        else
+        {
+          div = document.getElementById("searchUsers" + i);
+          div.style.display = "none";
+        }
+      }
+      for(var j = 0; j < searchResults.length; j++)
+      {
+        div.style.display = ""
+      }
+
+    }
+
+  }
+
   //the following four sets of openModal and closeModal all set the modalIsOpen state to either be true or false
   //this state is then used to determine if to open the modal or close the modal
   //this is done by the modal class. NOTE- The afterOpenModal function can be used to activate an animation
@@ -279,7 +343,7 @@ class Home extends React.Component {
                       <option value="3D Design">3D Design</option>
                       <option value="Brand Development">Brand Development</option>
                       <option value="Design Thinking">Design Thinking</option>
-                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="3D Printing">3D Printing</option>
                       <option value="Social Entrepreneurship">Social Entrepreneurship</option>
                       <option value="Entrepreneurship">Entrepreneurship</option>
                       <option value="Game/VR Design">Game/VR Design</option>
@@ -460,6 +524,14 @@ class Home extends React.Component {
         <h2 className="textAboveSearch"><span style={STYLE.SPAN}>C</span>reator<span style={STYLE.SPAN}>C</span>onnect<span style={STYLE.BETA}>BETA</span></h2>
         <div class="parent">
           <div class="searchBar"><input id="myInput" type="text" onKeyUp={this.handleSearch} placeholder={"Search through " + this.state.totalUsers + " users and their skills..."} ref="search"></input></div>
+          <div id="btnContainer">
+          <div className="filterBtn"><button onClick={() => this.filterBy("ALL")}>ALL</button></div>
+          <div className="filterBtn"><button onClick={() => this.filterBy("DESIGN")}>DESIGN</button></div>
+          <div className="filterBtn"><button onClick={() => this.filterBy("CREATE")}>CREATE</button></div>
+          <div className="filterBtn"><button onClick={() => this.filterBy("BUILD")}>BUILD</button></div>
+          <div className="filterBtn"><button onClick={() => this.filterBy("DEVELOP")}>DEVELOP</button></div>
+          </div>
+          
         </div>
         <div class="cards-container" id = "users">
       <UsersArray></UsersArray>
