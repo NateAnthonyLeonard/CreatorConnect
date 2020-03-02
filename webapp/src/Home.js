@@ -5,6 +5,8 @@ import './CreatorConnect.css';
 import { Redirect } from 'react-router-dom';
 import { booleanTypeAnnotation } from 'babel-types';
 import Modal from 'react-modal';
+import Switch from "react-switch";
+
 /*This is the Home component that will hold the logo and the search bar*/
 
 //NOTE- YOUR HTML CODE NEEDS TO BE AT WRAPPED AROUND A DIV OBJECT.
@@ -46,8 +48,11 @@ class Home extends React.Component {
       userEmail: "",
       userGrad: NaN,
       userSkills: [],
+      checked: false,
 
     };
+    this.handleChange = this.handleChange.bind(this);
+
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -67,6 +72,10 @@ class Home extends React.Component {
     this.editOpenModal = this.editOpenModal.bind(this);
     this.editAfterOpenModal = this.editAfterOpenModal.bind(this);
     this.editCloseModal = this.editCloseModal.bind(this);
+  }
+
+  handleChange(checked) {
+    this.setState({ checked });
   }
 
   componentDidMount() {
@@ -278,7 +287,6 @@ class Home extends React.Component {
     return this.state.data === 0 ?
     (
       <div> {/* DO NOT REMOVE THIS DIV COMPONENT*/}
-
       <div class="topnav">
         <form className="formWrap" action='http://localhost:5000/logout' method = 'POST' >
           <button className = "logout" type="submit">Logout</button>
@@ -522,6 +530,11 @@ class Home extends React.Component {
       </div>
 
         <h2 className="textAboveSearch"><span style={STYLE.SPAN}>C</span>reator<span style={STYLE.SPAN}>C</span>onnect<span style={STYLE.BETA}>BETA</span></h2>
+        
+<label class="switch">
+  <input type="checkbox"></input>
+  <span class="slider"></span>
+</label>
         <div class="parent">
           <div class="searchBar"><input id="myInput" type="text" onKeyUp={this.handleSearch} placeholder={"Search through " + this.state.totalUsers + " users and their skills..."} ref="search"></input></div>
           <div id="btnContainer">

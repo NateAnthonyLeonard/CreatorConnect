@@ -1,4 +1,4 @@
-from flask import request, redirect, flash, session, url_for, make_response
+from flask import request, redirect, flash, session, url_for, make_response, render_template
 from api_main import app, mongo
 from response import Response
 import bcrypt
@@ -178,6 +178,12 @@ def changeInfo():
     return redirect("http://localhost:3000/cards")
 #
       #})
-@app.route('/dummyRedirect', methods = ['GET'])
-def dummyRedirect():
-  return redirect("http://localhost:3000/cards")
+@app.route('/projects', methods=['GET', 'POST'])
+def home():
+  if request.method == 'GET':   
+    return render_template('projects.html')
+  if request.method == 'POST':
+    document = request.form.to_dict()
+    skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
+    mongo.db.projects.insert_one({'user who created': person})
+    return "SUCCESS"
