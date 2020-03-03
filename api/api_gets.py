@@ -99,6 +99,7 @@ def searchProjByProjname(projName):
     project = list(mongo.db.projects.find({"projTitle" : projName}))
 
     return Response(200, project).serialize()
+
 # ideas
 # /getByGradRange
 # /getBySkills

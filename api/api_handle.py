@@ -186,12 +186,14 @@ def home():
   global projSkillsForChange
   global projUrl
   global projEmail
+
   if request.method == 'GET':   
     return render_template('projects.html')
   if request.method == 'POST':
     document = request.form.to_dict()
     projTitle = document['projectTitle']
     projDescrip = document['name']
+
     projSkillsForChange = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
     projEmail = document['email']
     projUrl = document['url']
@@ -221,3 +223,10 @@ def changeProjInfo():
   projSkillsForChange = user['skills']
   projUrl = user['url']
   projEmail = user['email']
+
+    skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
+    emailName = document['email']
+    urlLink = document['url']
+    mongo.db.projects.insert_one({'projTitle': projTitle, 'projDescrip':projDescrip, 'skills':skillsArray, 'url':urlLink, 'email':emailName})
+    return redirect("http://localhost:5000/projectsRand")
+
