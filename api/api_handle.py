@@ -214,8 +214,8 @@ def changeProjInfo():
   global projSkillsForChange
   global projUrl
   global projEmail
-  doc = request.form.to_dict()
-  ProjemailEntered = doc['fsuEmail'].lower()
+  document = request.form.to_dict()
+  ProjemailEntered = document['fsuEmail'].lower()
   #search for email in DB
   user = mongo.db.projects.find({'email': ProjemailEntered})
   projTitle = user['projTitle']
@@ -224,9 +224,9 @@ def changeProjInfo():
   projUrl = user['url']
   projEmail = user['email']
 
-    skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
-    emailName = document['email']
-    urlLink = document['url']
-    mongo.db.projects.insert_one({'projTitle': projTitle, 'projDescrip':projDescrip, 'skills':skillsArray, 'url':urlLink, 'email':emailName})
-    return redirect("http://localhost:5000/projectsRand")
+    #skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
+  emailName = document['email']
+  urlLink = document['url']
+  mongo.db.projects.insert_one({'projTitle': projTitle, 'projDescrip':projDescrip}) #'skills':skillsArray, 'url':urlLink, 'email':emailName})
+  return redirect("http://localhost:5000/projectsRand")
 
