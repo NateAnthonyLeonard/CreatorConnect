@@ -83,6 +83,14 @@ def chooseCountGradDate(year, count):
     users = list(mongo.db.users.find({"grad_date" : year}).limit(count))
     return Response(200, users).serialize()
 
+@app.route('/projectsRand')
+def proyectos():
+    numProj = mongo.db.projects.count()
+    projectLst = list(mongo.db.projects.aggregate([ { "$sample": { "size": numProj } } ]))
+
+    # Return new response object formatted with users
+    return Response(200, projectLst).serialize()
+    
 # ideas
 # /getByGradRange
 # /getBySkills
