@@ -90,7 +90,16 @@ def proyectos():
 
     # Return new response object formatted with users
     return Response(200, projectLst).serialize()
-    
+
+#search by project name
+
+@app.route('/getProjects/<string:projName>')
+def searchProjByProjname(projName):
+    # Returns user specified object
+    project = list(mongo.db.projects.find({"projTitle" : projName}))
+
+    return Response(200, project).serialize()
+
 # ideas
 # /getByGradRange
 # /getBySkills
