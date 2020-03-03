@@ -180,10 +180,44 @@ def changeInfo():
       #})
 @app.route('/projects', methods=['GET', 'POST'])
 def home():
+  global person
+  global projTitle
+  global projDescrip
+  global projSkillsForChange
+  global projUrl
+  global projEmail
   if request.method == 'GET':   
     return render_template('projects.html')
   if request.method == 'POST':
     document = request.form.to_dict()
-    skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
-    mongo.db.projects.insert_one({'user who created': person})
-    return "SUCCESS"
+    projTitle = document['projectTitle']
+    projDescrip = document['name']
+    projSkillsForChange = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
+    projEmail = document['email']
+    projUrl = document['url']
+    mongo.db.projects.insert_one({'user who created':person, 'projTitle': projTitle, 'projDescrip':projDescrip, 'skills':projSkillsForChange, 'url':projUrl, 'email':projEmail})
+    return redirect("http://localhost:5000/projectsRand")
+
+@app.route('/myProjects/')
+def myProjects():
+  # Returns user specified object
+  projectsByUsers = list(mongo.db.projects.find({'user who created' : person}))
+
+  return Response(200, projectsByUsers).serialize()
+
+@app.route('/changeProjInfo')
+def changeProjInfo():
+  global projTitle
+  global projDescrip
+  global projSkillsForChange
+  global projUrl
+  global projEmail
+  doc = request.form.to_dict()
+  ProjemailEntered = doc['fsuEmail'].lower()
+  #search for email in DB
+  user = mongo.db.projects.find({'email': ProjemailEntered})
+  projTitle = user['projTitle']
+  projDescrip = user['projDescrip']
+  projSkillsForChange = user['skills']
+  projUrl = user['url']
+  projEmail = user['email']
