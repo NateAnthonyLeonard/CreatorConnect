@@ -180,10 +180,15 @@ def changeInfo():
       #})
 @app.route('/projects', methods=['GET', 'POST'])
 def home():
+  global person
   if request.method == 'GET':   
     return render_template('projects.html')
   if request.method == 'POST':
     document = request.form.to_dict()
+    projTitle = document['projectTitle']
+    projDescrip = document['name']
     skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
-    mongo.db.projects.insert_one({'user who created': person})
-    return "SUCCESS"
+    emailName = document['email']
+    urlLink = document['url']
+    mongo.db.projects.insert_one({'projTitle': projTitle, 'projDescrip':projDescrip, 'skills':skillsArray, 'url':urlLink, 'email':emailName})
+    return redirect("http://localhost:5000/projectsRand")
