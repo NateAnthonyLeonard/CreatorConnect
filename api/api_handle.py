@@ -29,7 +29,7 @@ def createNewUser():
     global graduYear
     global skillsForChange
     document = request.form.to_dict()
-    name = document['firstName'] + ' ' + document['lastName']
+    name = (document['firstName'].lower()).capitalize() + ' ' + (document['lastName'].lower()).capitalize
     emailEntered = document['fsuEmail'].lower()
     # TODO: Add verification for fsu.edu email // also email existence module 
 
@@ -161,7 +161,7 @@ def changeInfo():
     return Response(200, {"name": str(person), "email": str(email), "gradYear": graduYear, "skills": skillsForChange }).serialize()
   if request.method == 'POST':
     document = request.form.to_dict()
-    name = document['firstName'] + ' ' + document['lastName']
+    name = (document['firstName'].lower()).capitalize() + ' ' + (document['lastName'].lower()).capitalize()
     emailEntered = document['fsuEmail'].lower()
     
     skillsArray = [document['firstSkill'], document['secondSkill'], document['thirdSkill'], document['fourthSkill'], document['fifthSkill']]
@@ -230,3 +230,7 @@ def changeProjInfo():
   mongo.db.projects.insert_one({'projTitle': projTitle, 'projDescrip':projDescrip}) #'skills':skillsArray, 'url':urlLink, 'email':emailName})
   return redirect("http://localhost:5000/projectsRand")
 
+@app.route('/username')
+def returnUsername():
+  global person
+  return person

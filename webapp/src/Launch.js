@@ -28,37 +28,32 @@ export default function MultipleSelect() {
   const newUser = "New User? Click Here"
   //react hooks are used in a rather unconventional manner here. Allows for uniform asynchrenous functionality later on
   const boolArray = [true, false]  
+  const numArray = [0]
   const [registration, hideRegistration] = useState(boolArray[0]);
   const [login, setLogin] = useState(boolArray[1]);
   const [button, setButton] = useState(existingUser);
-  const [skill, setSkill] = React.useState([]);
-  let state = {
-    isLoggedIn: NaN
-  }
+  
+  const [isLoggedOut, checkLogin] = useState(-1)//useState(boolArray[1]);
   const axios = require('axios');
   const axiosWithCookies = axios.create({
     withCredentials: true
   });
-  //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
-  axiosWithCookies.get(`http://localhost:5000/login`)
+  
+  var rez; 
+  
+  window.onload = function () {
+    axiosWithCookies.get(`http://localhost:5000/login`)
     .then((response) => {
-        state.isLoggedIn = JSON.stringify(response.data) 
-        
-        }).catch((error) => {
-          alert("There was an error connecting to the api")
-          console.error(error);
-        });
-  let newUserData = {
-    firstName: '',
-    lastName: '',
-    email: ' ',
-    password: ' ',
-    gradDate: ' ',
-    skills: [],
-    dateCreated: Date()    //add a timestamp going forward
+      rez = parseInt(JSON.stringify(response.data))
+      if(rez === 0)
+      {
+        checkLogin(
+          isLoggedOut + 1
+        )
+      }
+      })
   }
   
-
   /*Trigger buttons that use hooks to either show or hide the login/signup option*/
   function triggerRegistration() {hideRegistration(!registration)}
   function triggerLogin() {setLogin(!login)}
@@ -73,11 +68,16 @@ export default function MultipleSelect() {
     }
   }
 
-  console.log(state.isLoggedIn)
+  function getUsername() {
+    axiosWithCookies.get(`http://localhost:5000/username`)
+    .then((response) => {
+       alert("You're logged in as " + JSON.stringify(response.data))
+      })
+  }
 
-  return state.isLoggedIn === 0 ? (
+  return isLoggedOut === 0 ? (
     <div>
-      {alert("already logged in")}
+      {getUsername()}
        <Redirect to={{pathname: "/cards",}}/>
     </div>
   )
@@ -134,7 +134,7 @@ export default function MultipleSelect() {
                       <option value="3D Design">3D Design</option>
                       <option value="Brand Development">Brand Development</option>
                       <option value="Design Thinking">Design Thinking</option>
-                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="3D Printing">3D Printing</option>
                       <option value="Social Entrepreneurship">Social Entrepreneurship</option>
                       <option value="Entrepreneurship">Entrepreneurship</option>
                       <option value="Game/VR Design">Game/VR Design</option>

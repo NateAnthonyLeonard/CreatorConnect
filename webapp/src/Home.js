@@ -375,7 +375,7 @@ class Home extends React.Component {
                       <option value="3D Design">3D Design</option>
                       <option value="Brand Development">Brand Development</option>
                       <option value="Design Thinking">Design Thinking</option>
-                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="3D Printing">3D Printing</option>
                       <option value="Social Entrepreneurship">Social Entrepreneurship</option>
                       <option value="Entrepreneurship">Entrepreneurship</option>
                       <option value="Game/VR Design">Game/VR Design</option>
@@ -399,7 +399,7 @@ class Home extends React.Component {
                       <option value="3D Design">3D Design</option>
                       <option value="Brand Development">Brand Development</option>
                       <option value="Design Thinking">Design Thinking</option>
-                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="3D Printing">3D Printing</option>
                       <option value="Social Entrepreneurship">Social Entrepreneurship</option>
                       <option value="Entrepreneurship">Entrepreneurship</option>
                       <option value="Game/VR Design">Game/VR Design</option>
@@ -423,7 +423,7 @@ class Home extends React.Component {
                       <option value="3D Design">3D Design</option>
                       <option value="Brand Development">Brand Development</option>
                       <option value="Design Thinking">Design Thinking</option>
-                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="3D Printing">3D Printing</option>
                       <option value="Social Entrepreneurship">Social Entrepreneurship</option>
                       <option value="Entrepreneurship">Entrepreneurship</option>
                       <option value="Game/VR Design">Game/VR Design</option>
@@ -447,7 +447,7 @@ class Home extends React.Component {
                       <option value="3D Design">3D Design</option>
                       <option value="Brand Development">Brand Development</option>
                       <option value="Design Thinking">Design Thinking</option>
-                      <option value="Digital Fabrication/3D Printing">Digital Fabrication/3D Printing</option>
+                      <option value="3D Printing">3D Printing</option>
                       <option value="Social Entrepreneurship">Social Entrepreneurship</option>
                       <option value="Entrepreneurship">Entrepreneurship</option>
                       <option value="Game/VR Design">Game/VR Design</option>
@@ -534,11 +534,33 @@ class Home extends React.Component {
         <div class="parent">
           <div class="searchBar"><input id="myInput" type="text" onKeyUp={this.handleSearch} placeholder={"Search through " + this.state.totalUsers + " users and their skills..."} ref="search"></input></div>
           <div id="btnContainer">
-          <div className="filterBtn"><button onClick={() => this.filterBy("ALL")}>ALL</button></div>
+          <div className="tooltip">
+            <div className="filterBtn"><button onClick={() => this.filterBy("ALL")}>ALL</button></div>
+            <span class="tooltiptext">CLICK TO SHOW ALL USERS</span>
+          </div>
+
+          
+          <div className="tooltip">
           <div className="filterBtn"><button onClick={() => this.filterBy("DESIGN")}>DESIGN</button></div>
-          <div className="filterBtn"><button onClick={() => this.filterBy("CREATE")}>CREATE</button></div>
-          <div className="filterBtn"><button onClick={() => this.filterBy("BUILD")}>BUILD</button></div>
-          <div className="filterBtn"><button onClick={() => this.filterBy("DEVELOP")}>DEVELOP</button></div>
+            <span class="tooltiptext">CLICK TO FILTER BY: <br></br><br></br>GRAPHIC DESIGN<br></br>GAME/VR DESIGN<br></br>WEB DESIGN<br></br>3D DESIGN <br></br>UX DESIGN<br></br>DESIGN THINKING</span>
+          </div>
+          
+
+          <div className="tooltip">
+            <div className="filterBtn"><button onClick={() => this.filterBy("CREATE")}>CREATE</button></div>
+            <span class="tooltiptext">CLICK TO FILTER BY: <br></br><br></br>DIGITAL PHOTOGRAPHY<br></br>VIDEO PRODUCTION<br></br>ENTREPRENEURSHIP<br></br>SOCIAL ENTREPRENEURSHIP <br></br>SOCIAL MEDIA MARKETING</span>
+          </div>
+
+          <div className="tooltip">
+            <div className="filterBtn"><button onClick={() => this.filterBy("DEVELOP")}>DEVELOP</button></div>
+            <span class="tooltiptext">CLICK TO FILTER BY: <br></br><br></br>BRAND DEVELOPMENT<br></br>COMPUTER PROGRAMMING<br></br>APP DEVELOPMENT<br></br>WEB DEVELOPMENT </span>
+          </div>
+
+          <div className="tooltip">
+            <div className="filterBtn"><button onClick={() => this.filterBy("BUILD")}>BUILD</button></div>
+            <span class="tooltiptext">CLICK TO FILTER BY: <br></br><br></br>ELECTRICAL CIRCUITS<br></br>LASER CUTTING<br></br>3D PRINTING  </span>
+          </div>
+          
           </div>
           
         </div>
