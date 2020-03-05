@@ -531,10 +531,6 @@ class Home extends React.Component {
 
         <h2 className="textAboveSearch"><span style={STYLE.SPAN}>C</span>reator<span style={STYLE.SPAN}>C</span>onnect<span style={STYLE.BETA}>BETA</span></h2>
         
-<label class="switch">
-  <input type="checkbox"></input>
-  <span class="slider"></span>
-</label>
         <div class="parent">
           <div class="searchBar"><input id="myInput" type="text" onKeyUp={this.handleSearch} placeholder={"Search through " + this.state.totalUsers + " users and their skills..."} ref="search"></input></div>
           <div id="btnContainer">

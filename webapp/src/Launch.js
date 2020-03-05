@@ -32,6 +32,22 @@ export default function MultipleSelect() {
   const [login, setLogin] = useState(boolArray[1]);
   const [button, setButton] = useState(existingUser);
   const [skill, setSkill] = React.useState([]);
+  let state = {
+    isLoggedIn: NaN
+  }
+  const axios = require('axios');
+  const axiosWithCookies = axios.create({
+    withCredentials: true
+  });
+  //connects to the login endpoint and reads the session cookie to see if the user is logged in to gain access to the cards page
+  axiosWithCookies.get(`http://localhost:5000/login`)
+    .then((response) => {
+        state.isLoggedIn = JSON.stringify(response.data) 
+        
+        }).catch((error) => {
+          alert("There was an error connecting to the api")
+          console.error(error);
+        });
   let newUserData = {
     firstName: '',
     lastName: '',
@@ -39,9 +55,10 @@ export default function MultipleSelect() {
     password: ' ',
     gradDate: ' ',
     skills: [],
-    dateCreated: Date()     //add a timestamp going forward
+    dateCreated: Date()    //add a timestamp going forward
   }
- 
+  
+
   /*Trigger buttons that use hooks to either show or hide the login/signup option*/
   function triggerRegistration() {hideRegistration(!registration)}
   function triggerLogin() {setLogin(!login)}
@@ -56,7 +73,17 @@ export default function MultipleSelect() {
     }
   }
 
-  return (
+  console.log(state.isLoggedIn)
+
+  return state.isLoggedIn === 0 ? (
+    <div>
+      {alert("already logged in")}
+       <Redirect to={{pathname: "/cards",}}/>
+    </div>
+  )
+  :
+  (
+    //TO DO: ADD HOVERS
     <div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
       <div className ="bothDivs">
